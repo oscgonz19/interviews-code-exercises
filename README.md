@@ -2,13 +2,13 @@
 
 This repository contains the solution to the technical challenge from **Thoughtful AI** for the **Forward Deployed Engineer** role.
 
-## 🎯 Objective
+## Objective
 
 Implement a function that classifies packages as `STANDARD`, `SPECIAL`, or `REJECTED` based on their physical properties. The logic simulates the decision-making process of a robotic arm in an automated dispatch system.
 
 ---
 
-## 📦 Classification Rules
+## Classification Rules
 
 A package is considered:
 
