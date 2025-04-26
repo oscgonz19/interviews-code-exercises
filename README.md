@@ -1,61 +1,98 @@
 
- Package Sorting - Data Cleaning and Classification
-Overview
-This script processes a raw dataset of package dimensions and mass, simulating real-world inconsistencies, to classify packages according to sorting criteria used in a robotic automation factory.
+# 📦 Robotic Arm Package Sorting Challenge
 
-The script:
+## Overview
+This project simulates the ingestion, cleaning, and classification of package data for a robotic automation system, as part of the Thoughtful AI live coding challenge.
 
-Parses a manually provided CSV string with various data errors.
+It focuses on processing real-world imperfect data — including missing, invalid, or inconsistent entries — to accurately classify packages according to predefined sorting criteria.
 
-Cleans the data by handling missing values, invalid types, negative numbers, and malformed rows.
+The main goals were:
+- Handle and clean messy data gracefully.
+- Apply sorting logic based on volume and mass thresholds.
+- Generate clear outputs highlighting both successful classifications and detected errors.
 
-Classifies each valid package into STANDARD, SPECIAL, or REJECTED categories based on volume and mass.
+---
 
-Logs both successful classifications and errors found during ingestion.
+## Problem Description
+Customers submit CSV files describing their packages.  
+Our robotic system must:
+1. **Read** the package data.
+2. **Clean** the dataset (handle missing or invalid values).
+3. **Classify** each package into one of three categories: `STANDARD`, `SPECIAL`, or `REJECTED`.
+4. **Report** results clearly and reliably.
 
-Sorting Criteria
-The sorting function applies the following logic:
+---
 
-A package is considered bulky if its volume (Width × Height × Length) is ≥ 1,000,000 cm³ or any dimension is ≥ 150 cm.
+## Sorting Rules
+Each package is classified according to the following criteria:
 
-A package is considered heavy if its mass is ≥ 20 kg.
+- **Bulky**: Volume ≥ 1,000,000 cm³  
+  (Volume = Width × Height × Length)  
+  or any dimension (Width, Height, Length) ≥ 150 cm.
+- **Heavy**: Mass ≥ 20 kg.
 
-Classification:
+| Conditions                        | Classification |
+|:----------------------------------|:---------------|
+| Heavy **and** Bulky               | REJECTED       |
+| Heavy **or** Bulky                | SPECIAL        |
+| Neither Heavy nor Bulky           | STANDARD       |
 
-If both heavy and bulky → REJECTED
+---
 
-If either heavy or bulky → SPECIAL
+## Approach
+- **Manual data ingestion** from a CSV-like raw text string.
+- **Error handling** for:
+  - Duplicated headers
+  - Missing fields
+  - Invalid types (e.g., non-numeric values)
+  - Negative dimensions or mass
+- **Custom classification function** to assign sorting categories.
+- **Separation** between valid processed entries and discarded rows with detailed error messages.
 
-Otherwise → STANDARD
+---
 
-Data Cleaning
-During ingestion, the script handles:
+## Results
+The script outputs:
+- A list of successfully classified packages with original dimensions and assigned category.
+- A detailed error log for invalid or discarded rows, indicating the reason for rejection.
 
-Repeated headers.
+---
 
-Rows with missing fields or "None" values.
+## Potential Improvements
+Given more time, I would enhance this solution by:
+- Implementing a full statistical report: counts, percentages, and mass/volume distributions for each category.
+- Using `pandas` for more efficient data ingestion and aggregation.
+- Adding unit tests and validation pipelines for larger datasets.
+- Improving scalability to handle very large files through batch processing.
 
-Rows with non-numeric or corrupted fields (e.g., "abc", "23ab").
+---
 
-Negative dimension or mass values.
+## How to Run
+Clone the repository and open the notebook:
 
-Rows with an incorrect number of columns.
+```bash
+git clone https://github.com/oscgonz19/interviews-code-exercises.git
+cd interviews-code-exercises
+jupyter notebook robotic_arm_package_sorting.ipynb
+```
 
-Invalid entries are logged separately for internal reporting.
+Alternatively, view the notebook directly via GitHub or Jupyter environments.
 
-Output
-The script generates:
+---
 
-A list of valid packages and their classification.
+## File Structure
+```
+robotic_arm_package_sorting.ipynb    # Main notebook with the complete solution
+README.md                           # Project overview and documentation
+```
 
-A list of discarded rows with the reason for rejection (e.g., missing fields, invalid types).
+---
 
-Potential Improvements
-Replace manual parsing with pandas.read_csv() and enhanced error handling.
+## Author
+Oscar González  
+*Candidate for Forward Deployed Engineer – Thoughtful AI*  
+[LinkedIn Profile](https://www.linkedin.com/in/oscgonz19/) (optional)
 
-Calculate and display summary statistics (counts, percentages, average mass and volume per classification).
+---
 
-Export a clean CSV report summarizing results.
-
-Extend support for very large datasets with efficient streaming or chunk processing.
-
+# 🚀
